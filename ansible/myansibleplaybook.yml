@@ -1,0 +1,25 @@
+---
+- name: Install Nginx and Git on Amazon Linux
+  hosts: servers
+  become: true
+
+  tasks:
+    - name: Update package manager cache (Amazon Linux)
+      yum:
+        name: "*"
+        state: latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Enable Nginx in Amazon Linux Extras
+      command: amazon-linux-extras enable nginx1
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Install Git
+      yum:
+        name: git
+        state: present
