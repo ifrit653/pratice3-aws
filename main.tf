@@ -2,8 +2,7 @@ terraform {
     required_providers {
         aws = {
             source  = "hashicorp/aws"
-            version = "~> 3.0"
-        }
+            version = "~> 3.0"        }
     }
 }
 
@@ -34,15 +33,14 @@ resource "aws_security_group" "minimal-conf" {
 }
 
 resource "aws_instance" "servers" {
-    count               = 1
     ami                 = "ami-00680fd4e58e51542"
     instance_type       = "t3.micro"
-    key_name            = "dell_figo_win"
+    key_name            = "<your key name here>"
 
     security_groups = [aws_security_group.minimal-conf.name]
 
     tags = {
-        Name = "Server${count.index}"
+        Name = "Terraformed"
     }
 }
 data "template_file" "hosts" {

@@ -23,3 +23,8 @@
       yum:
         name: git
         state: present
+    - name: Run nginx server
+      service:
+        name: nginx
+        state: started
+        enable: True
