@@ -1,8 +1,14 @@
 ## Description
 
-what this code do: 1. launch an instance EC2 on AWS via terraform 2. install git and nginx on the ec2 instance freshly created via ansible 3. and the a script file to launch automatically those action
+what this code do:
+
+1. launch an instance EC2 on AWS via terraform
+2. install git and nginx on the ec2 instance freshly created via ansible
+3. and the a script file to launch automatically those action
 
 ## Explaination
+
+compulsory
 
 ### in the main.tf file:
 
@@ -54,7 +60,7 @@ Generate automatically the hosts file which ansible will use:
 data "template_file" "hosts" {
     template = file("./hosts.tpl")
     vars = {
-        instance_name = join(" ansible_user=ec2-user ansible_ssh_private_key_file=/home/figo/.ssh/dell_figo_win.pem ansible_ssh_common_args='-o StrictHostKeyChecking=no'\n", concat(aws_instance.servers.*.public_ip, [""]))
+        instance_name = join(" ansible_user=<the username of the instance> ansible_ssh_private_key_file=<path to your key here> ansible_ssh_common_args='-o StrictHostKeyChecking=no'\n", concat(aws_instance.servers.*.public_ip, [""]))
     }
 }
 
